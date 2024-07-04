@@ -4,3 +4,4 @@ python-dateutil==2.8.2
 pyairtable==2.3.3
 pydantic==2.7.1
 Flask==3.0.3
+webdriver-manager==4.0.1

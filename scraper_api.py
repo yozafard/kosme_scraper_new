@@ -3,6 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+
 # from datetime import datetime, timedelta
 # import requests
 # import json
@@ -33,9 +37,13 @@ app.config['LOG_TABLE_ID'] = os.getenv('LOG_TABLE_ID')
 
 locale.setlocale(locale.LC_ALL, '')
 options = webdriver.ChromeOptions()
-   # Uncomment next line if you prefer Chrome in headless mode (i.e., no GUI)
-   # options.add_argument('headless')
-driver = webdriver.Chrome(options=options)
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-gpu")
+options.add_argument("--window-size=1920,1080")
+options.add_argument("--remote-debugging-port=9222")
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
 def login(username, password):
     driver.get(
