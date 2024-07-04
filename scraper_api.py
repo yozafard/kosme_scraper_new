@@ -488,16 +488,11 @@ def run_with_timeout(func, args=(), kwargs={}, timeout_duration=600):
 # @app.post("/send-to-airtable/")
 def send_to_airtable(username, password, startdate, enddate):
     # def send_to_airtable(username, start_date, end_date):
-    # token = 'pati64D87MqfDmtgI.b25a080f8d11b874b9002df0beea9794ad0138221161fcdfcfede25bfc56eb33'
     token = app.config['AIRTABLE_TOKEN']
     api = Api(token)
-    # base_id = "appc3DWcSKchYMBQr"
     base_id = app.config['BASE_ID']
-    # table_id = "tblipral8nGe6rv4x"
     table_id = app.config['HANDSON_TABLE_ID']
 
-    # table_id = "tblJQnE7zBnSvQ6eh"
-    # log_table_id = "tbl50jIGD7bdNxh2z"
     log_table_id = app.config['LOG_TABLE_ID']
     log_table = api.table(base_id, log_table_id)
 
@@ -568,7 +563,6 @@ update_airtable, timeout_duration=1200)  # Timeout after 5 minutes
 
 # Example usage for testing
 # Replace 'retrieve_data' with your actual data retrieval function
-# send_to_airtable(startdate, enddate, username='gary@ugadvisory.com', password='&MR%HIfLM6*OQ7!$')
 # start_scrape(startdate, enddate)
 # return
 
@@ -576,8 +570,8 @@ update_airtable, timeout_duration=1200)  # Timeout after 5 minutes
 @app.route('/scrape/<startdate>/<enddate>', methods=['GET', 'POST'])
 def start_scrape(startdate, enddate):
     try:
-        username = "gary@ugadvisory.com"
-        password = "&MR%HIfLM6*OQ7!$"
+        username = app.config['FRESHA_USERNAME']
+        password = app.config['FRESHA_PASS']
         print(
             f"Starting scrape from {startdate} to {enddate} with user {username}")
         threading.Thread(
