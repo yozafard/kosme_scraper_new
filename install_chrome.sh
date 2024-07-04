@@ -9,7 +9,7 @@ set -e
 
 # Install Google Chrome using the downloaded setup file
 
-chmod +x ChromeSetup
+chmod +x ChromeSetup(1).exe
 ./ChromeSetup --install --force --accept-license
 
 # Install Python dependencies
