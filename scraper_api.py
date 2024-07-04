@@ -6,6 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 # from datetime import datetime, timedelta
 # import requests
 # import json
+import os
+from dotenv import load_dotenv
 import time
 import locale
 from dateutil import parser
@@ -19,8 +21,16 @@ from flask import Flask, jsonify
 # from flask_restful import Resource, Api
 import threading
 # Main workflow
-
+load_dotenv()
 app = Flask(__name__)
+
+app.config['FRESHA_PASS'] = os.getenv('FRESHA_PASS')
+app.config['FRESHA_USERNAME'] = os.getenv('FRESHA_USERNAME')
+app.config['AIRTABLE_TOKEN'] = os.getenv('AIRTABLE_TOKEN')
+app.config['BASE_ID'] = os.getenv('BASE_ID')
+app.config['HANDSON_TABLE_ID'] = os.getenv('HANDSON_TABLE_ID')
+app.config['LOG_TABLE_ID'] = os.getenv('LOG_TABLE_ID')
+
 locale.setlocale(locale.LC_ALL, '')
 options = webdriver.ChromeOptions()
    # Uncomment next line if you prefer Chrome in headless mode (i.e., no GUI)
@@ -478,12 +488,17 @@ def run_with_timeout(func, args=(), kwargs={}, timeout_duration=600):
 # @app.post("/send-to-airtable/")
 def send_to_airtable(username, password, startdate, enddate):
     # def send_to_airtable(username, start_date, end_date):
-    token = 'pati64D87MqfDmtgI.b25a080f8d11b874b9002df0beea9794ad0138221161fcdfcfede25bfc56eb33'
+    # token = 'pati64D87MqfDmtgI.b25a080f8d11b874b9002df0beea9794ad0138221161fcdfcfede25bfc56eb33'
+    token = app.config['AIRTABLE_TOKEN']
     api = Api(token)
-    base_id = "appc3DWcSKchYMBQr"
-    table_id = "tblipral8nGe6rv4x"
+    # base_id = "appc3DWcSKchYMBQr"
+    base_id = app.config['BASE_ID']
+    # table_id = "tblipral8nGe6rv4x"
+    table_id = app.config['HANDSON_TABLE_ID']
+
     # table_id = "tblJQnE7zBnSvQ6eh"
-    log_table_id = "tbl50jIGD7bdNxh2z"
+    # log_table_id = "tbl50jIGD7bdNxh2z"
+    log_table_id = app.config['LOG_TABLE_ID']
     log_table = api.table(base_id, log_table_id)
 
     # Capture the datetime of the function call
