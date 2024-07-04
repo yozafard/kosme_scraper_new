@@ -43,7 +43,7 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920,1080")
 options.add_argument("--remote-debugging-port=9222")
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+driver = webdriver.Chrome(executable_path= ChromeDriverManager().install(), options=options)
 
 def login(username, password):
     driver.get(
