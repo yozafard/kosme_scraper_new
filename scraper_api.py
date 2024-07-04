@@ -37,6 +37,7 @@ app.config['LOG_TABLE_ID'] = os.getenv('LOG_TABLE_ID')
 
 locale.setlocale(locale.LC_ALL, '')
 options = webdriver.ChromeOptions()
+chrome_options.binary_location = './chrome.exe'  # Replace with actual path
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
