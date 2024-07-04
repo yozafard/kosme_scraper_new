@@ -4,10 +4,11 @@
 set -e
 
 # Update the package list and install dependencies
-apt-get update
-apt-get install -y wget gnupg2
+# apt-get update
+# apt-get install -y wget gnupg2
 
 # Install Google Chrome using the downloaded setup file
+
 chmod +x ChromeSetup
 ./ChromeSetup --install --force --accept-license
 
