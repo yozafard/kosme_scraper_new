@@ -44,8 +44,9 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920,1080")
 options.add_argument("--remote-debugging-port=9222")
+options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
 service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=options)
 
 def login(username, password):
     driver.get(
