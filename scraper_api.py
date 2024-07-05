@@ -465,7 +465,7 @@ def retrieve_data(username, password, start, end):
                 "Duration": duration_list[index],
                 "Price": price_list[index]
             }
-    driver.close()
+    # driver.close()
     driver.quit()
     return output
 
