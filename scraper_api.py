@@ -39,15 +39,15 @@ locale.setlocale(locale.LC_ALL, '')
 options = webdriver.ChromeOptions()
 # chrome_options.binary_location = './chrome.exe'  # Replace with actual path
 chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
+options.binary_location = chrome_binary_path
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920,1080")
-# options.add_argument("--remote-debugging-port=9222")
-# options.binary_location = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
+options.add_argument("--remote-debugging-port=9222")
 service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(executable_path=chrome_binary_path, service=service, options=options)
+driver = webdriver.Chrome(service=service, options=options)
 
 def login(username, password):
     driver.get(
