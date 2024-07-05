@@ -466,7 +466,6 @@ def retrieve_data(username, password, start, end):
                 "Price": price_list[index]
             }
     driver.close()
-    driver.quit()
     return output
 
 # app = FastAPI()
@@ -600,7 +599,7 @@ def start_scrape(startdate, enddate):
         print(error_message)
         return jsonify({"error": error_message}), 500
            # send_to_airtable(username, password, startdate, enddate)
-
+    driver.quit()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
