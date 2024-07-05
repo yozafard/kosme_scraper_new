@@ -593,13 +593,14 @@ def start_scrape(startdate, enddate):
         password,
         startdate,
          enddate)).start()
+        driver.quit()
         return jsonify({"message": "Scraping started successfully"}), 200
     except Exception as e:
         error_message = f"Error: {str(e)}"
         print(error_message)
+        driver.quit()
         return jsonify({"error": error_message}), 500
            # send_to_airtable(username, password, startdate, enddate)
-    driver.quit()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
