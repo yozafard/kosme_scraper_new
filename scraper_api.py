@@ -466,6 +466,7 @@ def retrieve_data(username, password, start, end):
                 "Price": price_list[index]
             }
     driver.close()
+    driver.quit()
     return output
 
 # app = FastAPI()
