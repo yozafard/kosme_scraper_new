@@ -37,18 +37,18 @@ app.config['HANDSON_TABLE_ID'] = os.getenv('HANDSON_TABLE_ID')
 app.config['LOG_TABLE_ID'] = os.getenv('LOG_TABLE_ID')
 
 locale.setlocale(locale.LC_ALL, '')
-options = webdriver.ChromeOptions()
-# chrome_options.binary_location = './chrome.exe'  # Replace with actual path
-chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
-options.binary_location = chrome_binary_path
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--disable-gpu")
-options.add_argument("--window-size=1920,1080")
-options.add_argument("--remote-debugging-port=9222")
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=options)
+# options = webdriver.ChromeOptions()
+# # chrome_options.binary_location = './chrome.exe'  # Replace with actual path
+# chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
+# options.binary_location = chrome_binary_path
+# options.add_argument("--headless")
+# options.add_argument("--no-sandbox")
+# options.add_argument("--disable-dev-shm-usage")
+# options.add_argument("--disable-gpu")
+# options.add_argument("--window-size=1920,1080")
+# options.add_argument("--remote-debugging-port=9222")
+# service = Service(ChromeDriverManager().install())
+# driver = webdriver.Chrome(service=service, options=options)
 
 def login(username, password):
     driver.get(
@@ -583,6 +583,19 @@ update_airtable, timeout_duration=1200)  # Timeout after 5 minutes
 
 @app.route('/scrape/<startdate>/<enddate>', methods=['GET', 'POST'])
 def start_scrape(startdate, enddate):
+    options = webdriver.ChromeOptions()
+    # chrome_options.binary_location = './chrome.exe'  # Replace with actual path
+    chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
+    options.binary_location = chrome_binary_path
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--remote-debugging-port=9222")
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+
     try:
         username = app.config['FRESHA_USERNAME']
         password = app.config['FRESHA_PASS']
@@ -596,15 +609,17 @@ def start_scrape(startdate, enddate):
                 startdate,
                 enddate)
         ).start()
-        reset_deployment = 'https://api.render.com/deploy/srv-cq3bqocs1f4s73fdf1k0?key=OoLMHzpG9NA'
-        requests.get(reset_deployment)
+        driver.quit()
+        # reset_deployment = 'https://api.render.com/deploy/srv-cq3bqocs1f4s73fdf1k0?key=OoLMHzpG9NA'
+        # requests.get(reset_deployment)
         return jsonify({"message": "Scraping started successfully"}), 200
     except Exception as e:
         error_message = f"Error: {str(e)}"
         print(error_message)
+        driver.quit()
         return jsonify({"error": error_message}), 500
            # send_to_airtable(username, password, startdate, enddate)
-
+        
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
