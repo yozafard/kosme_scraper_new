@@ -14,5 +14,8 @@ RUN chmod +x /app/install_chrome.sh
 # Install Chrome and Python dependencies
 RUN ./install_chrome.sh
 
+COPY requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt
+
 # Run your Python script
 CMD ["python", "./scraper_api.py"]

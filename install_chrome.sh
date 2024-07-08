@@ -27,7 +27,7 @@ fi
 export PATH="${PATH}:${STORAGE_DIR}/chrome/opt/google/chrome"
 
 # Install Python dependencies
-pip install -r requirements.txt
+# pip install -r requirements.txt
 
 # Clean up temporary files
 echo "Cleaning up..."
