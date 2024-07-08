@@ -17,6 +17,7 @@ import locale
 from dateutil import parser
 import threading
 import datetime
+import requests
 # import datetime
 from pyairtable import Api
 # from fastapi import FastAPI, HTTPException
@@ -588,12 +589,15 @@ def start_scrape(startdate, enddate):
         print(
             f"Starting scrape from {startdate} to {enddate} with user {username}")
         threading.Thread(
-    target=send_to_airtable,
-    args=(
-        username,
-        password,
-        startdate,
-         enddate)).start()
+            target=send_to_airtable,
+            args=(
+                username,
+                password,
+                startdate,
+                enddate)
+        ).start()
+        reset_deployment = 'https://api.render.com/deploy/srv-cq3bqocs1f4s73fdf1k0?key=OoLMHzpG9NA'
+        requests.get(reset_deployment)
         return jsonify({"message": "Scraping started successfully"}), 200
     except Exception as e:
         error_message = f"Error: {str(e)}"
