@@ -30,10 +30,12 @@ RUN apt-get update && apt-get install -y \
     libxss1 \
     libxtst6 \
     libgbm-dev \
-    libgtk-3-0 \
+    libgbm1 \
     libnotify-dev \
+    libglu1 \
     libgstreamer-plugins-base1.0-dev \
     libwebp6 \
+    libxshmfence1 \
     libjpeg-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
