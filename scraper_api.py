@@ -39,7 +39,8 @@ app.config['LOG_TABLE_ID'] = os.getenv('LOG_TABLE_ID')
 locale.setlocale(locale.LC_ALL, '')
 options = webdriver.ChromeOptions()
 # chrome_options.binary_location = './chrome.exe'  # Replace with actual path
-chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
+# chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/google-chrome"
+chrome_binary_path = "/usr/bin/google-chrome"
 options.binary_location = chrome_binary_path
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
